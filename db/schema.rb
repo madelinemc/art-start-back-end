@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_27_234924) do
+ActiveRecord::Schema.define(version: 2021_02_28_192512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,12 @@ ActiveRecord::Schema.define(version: 2021_02_27_234924) do
     t.string "period"
     t.string "date"
     t.string "medium"
-    t.integer "height"
-    t.integer "width"
+    t.float "height"
+    t.float "width"
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "depth"
     t.index ["artist_id"], name: "index_artworks_on_artist_id"
     t.index ["department_id"], name: "index_artworks_on_department_id"
   end
