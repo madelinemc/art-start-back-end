@@ -11,7 +11,7 @@ require ‘rest-client’
 def met_data
 
     department_data = RestClient.get('https://collectionapi.metmuseum.org/public/collection/v1/departments')
-        if department_data.code == 200..207
+        if department_data.code == 200
             parsed_department_data = JSON.parse(department_data)
             parsed_department_data.for_each { |dept|
                 department = Department.create(
@@ -21,16 +21,16 @@ def met_data
         end
 
     artwork_data = RestClient.get('https://collectionapi.metmuseum.org/public/collection/v1/objects')
-        if artwork_data.code == 200..207
+        if artwork_data.code == 200
             parsed_artwork_data = JSON.parse(artwork_data)
             parsed_artwork_data.for_each { |aw|
                 artwork = Artwork.create(
                     met_identifier = aw['objectIDs']
                 )
-                each_artwork_data = RestClient.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/${artwork.met_identifier}')
-                if each_artwork_data.code == 200..207
+                each_artwork_data = RestClient.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + artwork.met_identifier.to_s )
+                if each_artwork_data.code == 200
                     parsed_each_artwork_data = JSON.parse(each_artwork_data)
-                    if parsed_each_artwork_data['primaryImage'] != nil && parsed_each_artwork_data['constituents'] != nil
+                    if parsed_each_artwork_data['primaryImage'] != nil && parsed_each_artwork_data['primaryImage'] != "" && parsed_each_artwork_data['constituents'] != nil
                         artwork.update(
                             highlight: parsed_each_artwork_data['isHighlight'],
                             primary_image_small: parsed_each_artwork_data['primaryImage'],
@@ -54,3 +54,5 @@ def met_data
         end
 
 end
+
+met_data
