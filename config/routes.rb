@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  resources :artworks, only: [:index]
+  resources :artworks, only: [:index, :show]
 
 end

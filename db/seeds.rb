@@ -71,7 +71,7 @@ def get_artwork_by_dept_data(met_dept_id) #BY DEPARTMENT
         parsed_artwork_data = JSON.parse(artwork_data)
         artwork_array = parsed_artwork_data['objectIDs']
 
-        i = 108
+        i = 289
         while i < 3000
             each_artwork_data = RestClient.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + artwork_array[i].to_s )
             sleep(1)
@@ -95,7 +95,7 @@ def get_artwork_by_dept_data(met_dept_id) #BY DEPARTMENT
                             url: parsed_each_artwork_data['objectURL'],
                             
                             department_id: Department.find_or_create_by(name: parsed_each_artwork_data['department']).id,
-                            artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Ancient Greek and Roman Artists").id
+                            artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Medieval Artist").id
                         )
                     else
                     end
@@ -108,15 +108,15 @@ def get_artwork_by_dept_data(met_dept_id) #BY DEPARTMENT
 
 #get_department_data
 #get_artwork_data
-get_artwork_by_dept_data(13)
+get_artwork_by_dept_data(17)
 
 #PROGRESS THROUGH EACH DEPARTMENT:
 #"The American Wing" 96  ----GOT UP TO artwork_array[5244] roughly 1000 db entries
 #"Egyptian Art" 9,  (met id is 10) ----GOT UP TO artwork_array[12000] roughly 100 db entries   artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'][0]['name'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Ancient Egyptians").id
 #"European Paintings" 10 (met id is 11) ----GOT ALL artwork_array[2611] roughly 1900 db entries  Artwork.all.length is 2967
-#"Greek and Roman Art" 12, (met id is 13) ----IN PROGRESS
-#"Modern Art" 19, (met id is 21)
-#"Medieval Art" 16, (met id is 17)
+#"Greek and Roman Art" 12, (met id is 13) ----GOT UP TO artwork_array[2181] roughly 1300 db entries  Artwork.all.length is 4282    artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Ancient Greek and Roman Artists").id + line 80 = #&& parsed_each_artwork_data['constituents'] != nil
+#"Modern Art" 19, (met id is 21) ----GOT UP TO arwork_array[14046] roughly 180 db entries Artwork.all.length is 4461
+#"Medieval Art" 16, (met id is 17) ----IN PROGRESS
 #"The Costume Institute" 7, (met id is 8)
 #"Arts of Africa, Oceania, and the Americas" 4, (met id is 5)
 #"Ancient Near Eastern Art" 2, (met id is 3)
