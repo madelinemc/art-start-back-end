@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   resources :artworks, only: [:index, :show]
 
+  resources :departments, only: [:index]
+
 end
