@@ -1,7 +1,11 @@
 class ArtworksController < ApplicationController
 
     def index
-        artworks = Artwork.select_random_artworks
+        if params[:department_id]
+            artworks = Artwork.select_random_artworks_dept(params[:department_id])
+        else
+            artworks = Artwork.select_random_artworks
+        end
         render({json: artworks, except: [:created_at, :updated_at] })
     end
 

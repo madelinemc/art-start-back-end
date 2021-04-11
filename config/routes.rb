@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :artworks, only: [:index, :show]
 
-  resources :departments, only: [:index]
+  resources :departments, only: [:index] do
+    resources :artworks, only: [:index]
+  end
 
 end
