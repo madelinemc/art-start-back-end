@@ -13,7 +13,7 @@ class ArtworksController < ApplicationController
 
     def show
         art = Artwork.find_by_id(params[:id])
-        render({json: art, except: [:created_at, :updated_at] })
+        render json: art, include: [:artist]
     end
     
 end
