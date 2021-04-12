@@ -7,4 +7,8 @@ Rails.application.routes.draw do
     resources :artworks, only: [:index]
   end
 
+  resources :artists do
+    resources :artworks, only: [:index]
+  end
+
 end
