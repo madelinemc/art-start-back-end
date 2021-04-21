@@ -71,7 +71,7 @@ def get_artwork_by_dept_data(met_dept_id) #BY DEPARTMENT
         parsed_artwork_data = JSON.parse(artwork_data)
         artwork_array = parsed_artwork_data['objectIDs']
 
-        i = 0
+        i = 400
         while i < 3000
             each_artwork_data = RestClient.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + artwork_array[i].to_s )
             sleep(1)
@@ -95,7 +95,7 @@ def get_artwork_by_dept_data(met_dept_id) #BY DEPARTMENT
                             url: parsed_each_artwork_data['objectURL'],
                             
                             department_id: Department.find_or_create_by(name: parsed_each_artwork_data['department']).id,
-                            artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Islamic Artist").id
+                            artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Artist Arms and Armor").id
                         )
                     else
                     end
@@ -108,7 +108,7 @@ def get_artwork_by_dept_data(met_dept_id) #BY DEPARTMENT
 
 #get_department_data
 #get_artwork_data
-get_artwork_by_dept_data(14)
+get_artwork_by_dept_data(4)
 
 #PROGRESS THROUGH EACH DEPARTMENT:
 #"The American Wing" 96  ----GOT UP TO artwork_array[5244] roughly 1000 db entries
@@ -123,14 +123,14 @@ get_artwork_by_dept_data(14)
 #"Asian Art" 5, (met id is 6) ----GOT UP TO arwork_array[210] roughly 210 db entries Artwork.all.length is 6765     artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Asian Artist").id
 #"The Cloisters" 6, (met id is 7) ----GOT UP TO arwork_array[204] roughly 385 db entries Artwork.all.length is 7150     artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Artist Cloisters").id
 #"European Sculpture and Decorative Arts" 11, (met id is 12) ----GOT UP TO arwork_array[299] roughly 266 db entries Artwork.all.length is 7416      artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown European Artist").id
-#"Islamic Art" 13, (met id is 14) ----IN PROGRESS
-#"Drawings and Prints" 8, (met id is 9)
-#"Photographs" 18, (met id is 19)
-#"Arms and Armor" 3, (met id is 4) 
+#"Islamic Art" 13, (met id is 14) ----GOT UP TO arwork_array[233] roughly 35 db entries Artwork.all.length is 7451      artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Islamic Artist").id
+#"Drawings and Prints" 8, (met id is 9) ----GOT UP TO arwork_array[398] roughly 225 db entries Artwork.all.length is 7676     artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Artist Drawings and Prints").id
+# "The Libraries" 15, (met id is 16) ----GOT UP TO arwork_array[197] roughly 41 db entries Artwork.all.length is 7717     artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Artist Libraries").id
+# "American Decorative Arts" 1, (met id is 1) ----GOT UP TO arwork_array[396] roughly 134 db entries Artwork.all.length is 7851     artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown American Artist").id
+# "The Robert Lehman Collection" 14, (met id is 15) ----GOT UP TO arwork_array[193] roughly 173 db entries Artwork.all.length is 8024     artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Artist from Robert Lehman Collection").id
+#"Arms and Armor" 3, (met id is 4) ----GOT UP TO arwork_array[400] roughly 9 db entries Artwork.all.length is 8033     artist_id: Artist.find_or_create_by(name: parsed_each_artwork_data['constituents'] != nil ? parsed_each_artwork_data['constituents'][0]['name'] : "Unknown Artist Arms and Armor").id
 
 
 #UNUSED DEPTS:
-# "American Decorative Arts" 1
-# "The Robert Lehman Collection" 14
-# "The Libraries" 15
-# "Musical Instruments" 17
+# "Musical Instruments" 17, (met id is 18) ----IN PROGRESS
+#"Photographs" 18, (met id is 19)
